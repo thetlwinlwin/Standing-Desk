@@ -99,17 +99,16 @@ const toggleBurgerMenu = () => {
     const navWrapper = document.querySelector(".header-wrapper nav");
     const searchCartWrapper = document.querySelector(".search-cart-wrapper");
     const lines = document.querySelectorAll(".line");
-
     console.log(navWrapper.style.display);
     if (navWrapper.style.display === "block") {
-        headerWrapper.style.gridTemplateRow = "auto";
+        headerWrapper.style.gridTemplateRows = "auto";
         navWrapper.style.display = "none";
         searchCartWrapper.style.display = "none";
         lines.forEach(function (line) {
             line.classList.remove("active");
         });
     } else {
-        headerWrapper.style.gridTemplateRow = "repeat(3,1fr)";
+        headerWrapper.style.gridTemplateRows = "repeat(3,1fr)";
         headerWrapper.style.rowGap = "10px";
         navWrapper.style.display = "block";
         navWrapper.style.gridColumn = "1 / -1";
@@ -123,5 +122,7 @@ const toggleBurgerMenu = () => {
 
 burgerMenuBtn.addEventListener("click", toggleBurgerMenu);
 
-window.addEventListener("resize", initSlider);
+window.addEventListener("resize", () => {
+    initSlider();
+});
 window.addEventListener("load", initSlider);

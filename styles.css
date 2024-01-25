@@ -24,7 +24,7 @@ body {
 }
 .navlink-list {
     list-style-type: none;
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     display: grid;
     grid-template-columns: repeat(4, auto);
@@ -452,5 +452,23 @@ footer {
     .form-group input[type="email"],
     .form-group input[type="submit"] {
         width: calc(100% - 20px);
+    }
+}
+
+@media screen and (min-width: 681px) {
+    .header-wrapper {
+        grid-template-columns: 1fr 2fr 1fr !important;
+        grid-template-rows: none !important;
+    }
+    .header-wrapper nav {
+        display: block;
+        grid-column: auto !important;
+    }
+    .search-cart-wrapper {
+        display: flex;
+        grid-column: auto !important;
+    }
+    .burger-menu-container {
+        display: none;
     }
 }
