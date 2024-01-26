@@ -157,14 +157,18 @@ const loadCart = () => {
     const cart = window.localStorage.getItem("cart");
     const emptyCartEle = document.querySelector(".empty-basket");
     const basketEle = document.querySelector(".basket-list");
+    const basketHeaderEle = document.querySelector(".basket-header");
+
     if (!cart) {
         basketEle.style.display = "none";
     }
     if (cart) {
+        let totalPrice = 0;
         emptyCartEle.style.display = "none";
         const cartItems = cart.split(",");
         cartItems.forEach((item) => {
             const price = PRODUCTPRICES[item];
+            totalPrice += price;
             const div = document.createElement("div");
             div.classList.add("basket-item");
             div.innerHTML = `
@@ -179,6 +183,10 @@ const loadCart = () => {
             `;
             basketEle.appendChild(div);
         });
+        basketHeaderEle.innerHTML += `
+            <p>Total Price : $${totalPrice}</p>
+           
+      `;
     }
 };
 
@@ -186,22 +194,39 @@ const removeFromCart = () => {
     const removeCartBtns = document.querySelectorAll(".remove-from-cart");
     const basketEle = document.querySelector(".basket-list");
     const emptyCartEle = document.querySelector(".empty-basket");
+    const basketHeaderEle = document.querySelector(".basket-header");
+
+    let totalPrice = basketHeaderEle
+        .querySelectorAll("p")[0]
+        .textContent.split(" : ")[1]
+        .slice(1);
     removeCartBtns.forEach((btn) => {
         btn.addEventListener("click", (e) => {
             const ele = e.currentTarget.parentNode.parentNode;
-
+            const totalPriceEle = document.querySelector(".basket-header p");
             const cart = window.localStorage.getItem("cart");
             const cartItems = cart.split(",");
             const itemToRemove = ele.querySelector("h3").textContent;
-            const newCart = cartItems.filter((item) => item !== itemToRemove);
-            ele.remove();
+            for (const key in cartItems) {
+                if (cartItems[key] == itemToRemove) {
+                    totalPrice -= PRODUCTPRICES[itemToRemove];
 
-            if (newCart.length === 0) {
+                    cartItems.splice(key, 1);
+                    break;
+                }
+            }
+            ele.remove();
+            totalPriceEle.remove();
+            basketHeaderEle.innerHTML += `
+            <p>Total Price : $${totalPrice}</p>
+            `;
+            if (cartItems.length === 0) {
+                totalPriceEle.style.display = "none";
                 basketEle.style.display = "none";
                 emptyCartEle.style.display = "flex";
                 window.localStorage.removeItem("cart");
             } else {
-                window.localStorage.setItem("cart", newCart.join(","));
+                window.localStorage.setItem("cart", cartItems.join(","));
             }
         });
     });
@@ -240,7 +265,6 @@ window.onload = (e) => {
         removeFromCart();
     }
 };
-
 window.addEventListener("resize", () => {
     initSlider();
 });

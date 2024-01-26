@@ -527,6 +527,16 @@ option {
     display: flex;
     flex-direction: column;
 }
+.basket-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.basket-header p {
+    font-size: clamp(0.75rem, 0.703rem + 0.2151vw, 0.875rem);
+    font-weight: 900;
+}
 .basket-title {
     font-size: clamp(1rem, 0.6707rem + 1.5054vw, 1.875rem);
     padding: 20px;
@@ -551,7 +561,7 @@ option {
 .basket-item {
     width: 100%;
     max-width: 800px;
-    max-height: 80px;
+    min-height: 80px;
     display: flex;
     justify-content: space-between;
     border: 1px solid black;
@@ -576,6 +586,8 @@ option {
 }
 .price-group {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
     align-items: center;
     gap: 20px;
 }
