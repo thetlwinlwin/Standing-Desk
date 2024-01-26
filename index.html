@@ -50,9 +50,12 @@
                     class="search-input"
                     placeholder="Search..."
                 />
-                <button>
-                    <img src="./assets/icons/shopping_bag.svg" alt="checkout" />
-                </button>
+                <a
+                    href="./pages/basket.html"
+                    target="_self"
+                    rel="noopener noreferrer"
+                    ><img src="./assets/icons/shopping_bag.svg" alt="checkout"
+                /></a>
             </div>
         </header>
         <main>
@@ -82,7 +85,7 @@
                 </div>
                 <div class="slider-wrapper">
                     <button id="prev-slide" class="slide-button">❮</button>
-                    <ul class="image-list">
+                    <div class="image-list">
                         <img
                             class="image-item"
                             src="./assets/products/product_2.jpg"
@@ -113,7 +116,7 @@
                             src="./assets/products/product_4.jpg"
                             alt="special offer-3"
                         />
-                    </ul>
+                    </div>
                     <button id="next-slide" class="slide-button">❯</button>
                     <div class="slider-scrollbar">
                         <div class="scrollbar-track">
@@ -126,34 +129,33 @@
                 <div class="footer-wrapper">
                     <h1>Standing Desk Ltd</h1>
                     <div class="footer-link-wrapper">
-                        <li class="footer-link">
-                            <ul>
+                        <ul class="footer-link">
+                            <li>
                                 <a href="./index.html" class="nav-active"
                                     >Home</a
                                 >
-                            </ul>
-                            <ul>
+                            </li>
+                            <li>
                                 <a href="./pages/products.html">Products</a>
-                            </ul>
-                            <ul>
+                            </li>
+                            <li>
                                 <a href="./pages/health_benefit.html"
                                     >Benefits</a
                                 >
-                            </ul>
-                            <ul>
+                            </li>
+                            <li>
                                 <a href="./pages/contact_us.html">Contact Us</a>
-                            </ul>
-                        </li>
+                            </li>
+                        </ul>
                     </div>
                     <div class="social-copyright">
                         <div class="socials">
                             <a href="http://facebook.com">
-                                <?xml version="1.0" encoding="UTF-8"?>
                                 <svg
+                                    id="facebook"
                                     xmlns="http://www.w3.org/2000/svg"
                                     xmlns:xlink="http://www.w3.org/1999/xlink"
                                     version="1.1"
-                                    id="Capa_1"
                                     x="0px"
                                     y="0px"
                                     viewBox="0 0 24 24"
@@ -170,12 +172,11 @@
                                 </svg>
                             </a>
                             <a href="http://instagram.com">
-                                <?xml version="1.0" encoding="UTF-8"?>
                                 <svg
+                                    id="instagram"
                                     xmlns="http://www.w3.org/2000/svg"
                                     xmlns:xlink="http://www.w3.org/1999/xlink"
                                     version="1.1"
-                                    id="Capa_1"
                                     x="0px"
                                     y="0px"
                                     viewBox="0 0 24 24"
@@ -200,12 +201,11 @@
                                 </svg>
                             </a>
                             <a href="http://linkedin.com">
-                                <?xml version="1.0" encoding="UTF-8"?>
                                 <svg
+                                    id="linkedin"
                                     xmlns="http://www.w3.org/2000/svg"
                                     xmlns:xlink="http://www.w3.org/1999/xlink"
                                     version="1.1"
-                                    id="Capa_1"
                                     x="0px"
                                     y="0px"
                                     viewBox="0 0 24 24"
