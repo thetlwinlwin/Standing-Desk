@@ -2,6 +2,13 @@ const dialogCloseBtn = document.querySelector(".modal-close-btn");
 const dialog = document.querySelector(".modal");
 const formSubmit = document.querySelector(".form-group input[type='submit']");
 const burgerMenuBtn = document.querySelector(".burger-menu-container");
+const filter = document.getElementById("filter-sort");
+
+const FEATURED = [0, 1, 2, 3, 4];
+const NEWEST = [4];
+const BEST_SELLING = [3, 4, 1, 0, 2];
+const P_L_TO_H = [4, 2, 1, 3, 0];
+const ALLPRODUCTS = document.querySelectorAll(".product-container");
 
 const initSlider = () => {
     const imageList = document.querySelector(".slider-wrapper .image-list");
@@ -120,8 +127,41 @@ const toggleBurgerMenu = () => {
     }
 };
 
-burgerMenuBtn.addEventListener("click", toggleBurgerMenu);
+const filterSort = (e) => {
+    const value = e.target.value;
 
+    const productsWrapper = document.querySelector(".products-wrapper");
+
+    ALLPRODUCTS.forEach((product) => {
+        product.remove();
+    });
+
+    if (value === "featured") {
+        FEATURED.forEach((index) => {
+            productsWrapper.appendChild(ALLPRODUCTS[index]);
+        });
+    }
+    if (value === "newest") {
+        NEWEST.forEach((index) => {
+            productsWrapper.appendChild(ALLPRODUCTS[index]);
+        });
+    }
+    if (value === "best-selling") {
+        BEST_SELLING.forEach((index) => {
+            productsWrapper.appendChild(ALLPRODUCTS[index]);
+        });
+    }
+    if (value === "l-to-h") {
+        P_L_TO_H.forEach((index) => {
+            productsWrapper.appendChild(ALLPRODUCTS[index]);
+        });
+    }
+};
+
+burgerMenuBtn.addEventListener("click", toggleBurgerMenu);
+if (filter) {
+    filter.addEventListener("change", filterSort);
+}
 window.addEventListener("resize", () => {
     initSlider();
 });

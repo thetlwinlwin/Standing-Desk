@@ -290,12 +290,12 @@ footer {
 .footer-link-wrapper a {
     text-decoration: none;
 }
-.footer-link ul a {
+.footer-link a {
     color: white;
     font-size: clamp(0.6rem, 0.5625rem + 1vw, 1.125rem);
     transition: color 0.1s ease-in;
 }
-.footer-link ul a:hover {
+.footer-link a:hover {
     color: black;
 }
 .social-copyright {
@@ -325,6 +325,113 @@ footer {
 .social-copyright p {
     padding: 10px;
     font-size: clamp(0.625rem, 0.4688rem + 0.5vw, 0.75rem);
+}
+
+.products-wrapper {
+    width: 90vw;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 350px);
+    column-gap: 20px;
+    row-gap: 40px;
+    align-items: flex-start;
+    justify-content: center;
+}
+.products-filter-wrapper {
+    margin-top: 20px;
+    grid-column: 1/-1;
+}
+.filter-fieldset {
+    padding: 16px 14px;
+    border: none;
+}
+.filter-label {
+    font-size: 16px;
+}
+#filter-sort {
+    border: none;
+    font-weight: bold;
+    margin-left: 4px;
+    width: auto;
+    background: none;
+    font-size: 16px;
+}
+option {
+    font-weight: normal;
+    display: block;
+    min-height: 1.2em;
+    padding: 0px 2px 1px;
+    white-space: nowrap;
+}
+
+.product-container {
+    padding: 10px;
+    border: 1px solid black;
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+    justify-self: center;
+    max-width: 300px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.product-img {
+    width: 100%;
+    max-height: 250px;
+}
+.product-color-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.product-color {
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+}
+.color-1 {
+    background-color: bisque;
+}
+.color-2 {
+    background-color: blue;
+}
+.color-3 {
+    background-color: brown;
+}
+.color-4 {
+    background-color: yellow;
+}
+.color-5 {
+    background-color: blanchedalmond;
+}
+.color-6 {
+    background-color: cadetblue;
+}
+
+.product-spec span {
+    display: block;
+    line-height: 1.4;
+    font-size: clamp(0.75rem, 0.7099rem + 0.1835vw, 0.875rem);
+}
+.rating-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.rating-icons {
+    min-width: 150px;
+    display: flex;
+    width: fit-content;
+}
+.rating-wrapper span {
+    font-size: clamp(0.625rem, 0.5849rem + 0.1835vw, 0.75rem);
+}
+.product-price {
+    padding-top: 10px;
+    font-weight: bolder;
+    font-size: clamp(1.5rem, 1.4197rem + 0.367vw, 1.75rem);
 }
 
 .benefits-wrapper {
@@ -433,6 +540,10 @@ footer {
     }
     .burger-menu-container {
         display: block;
+    }
+
+    .product-img {
+        max-height: 250px;
     }
 
     .home-wrapper {
