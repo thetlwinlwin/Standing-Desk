@@ -3,12 +3,20 @@ const dialog = document.querySelector(".modal");
 const formSubmit = document.querySelector(".form-group input[type='submit']");
 const burgerMenuBtn = document.querySelector(".burger-menu-container");
 const filter = document.getElementById("filter-sort");
+const addToCartBtns = document.querySelectorAll(".add-to-cart");
 
 const FEATURED = [0, 1, 2, 3, 4];
 const NEWEST = [4];
 const BEST_SELLING = [3, 4, 1, 0, 2];
 const P_L_TO_H = [4, 2, 1, 3, 0];
-const ALLPRODUCTS = document.querySelectorAll(".product-container");
+const ALLPRODUCTELES = document.querySelectorAll(".product-container");
+const PRODUCTPRICES = {
+    product_5: 549,
+    product_4: 449,
+    product_1: 399,
+    product_3: 499,
+    product_2: 349,
+};
 
 const initSlider = () => {
     const imageList = document.querySelector(".slider-wrapper .image-list");
@@ -75,11 +83,6 @@ const initSlider = () => {
 };
 
 const dialogCloseBtnOnClick = () => dialog.close();
-window.onload = (e) => {
-    if (dialog) {
-        dialog.showModal();
-    }
-};
 
 const submitForm = () => {
     const firstNameInput = document.getElementById("firstName");
@@ -92,14 +95,6 @@ const submitForm = () => {
     lastNameInput.value = "";
     emailInput.value = "";
 };
-
-if (formSubmit) {
-    formSubmit.addEventListener("click", submitForm);
-}
-
-if (dialogCloseBtn) {
-    dialogCloseBtn.addEventListener("click", dialogCloseBtnOnClick);
-}
 
 const toggleBurgerMenu = () => {
     const headerWrapper = document.querySelector(".header-wrapper");
@@ -132,36 +127,120 @@ const filterSort = (e) => {
 
     const productsWrapper = document.querySelector(".products-wrapper");
 
-    ALLPRODUCTS.forEach((product) => {
+    ALLPRODUCTELES.forEach((product) => {
         product.remove();
     });
 
     if (value === "featured") {
         FEATURED.forEach((index) => {
-            productsWrapper.appendChild(ALLPRODUCTS[index]);
+            productsWrapper.appendChild(ALLPRODUCTELES[index]);
         });
     }
     if (value === "newest") {
         NEWEST.forEach((index) => {
-            productsWrapper.appendChild(ALLPRODUCTS[index]);
+            productsWrapper.appendChild(ALLPRODUCTELES[index]);
         });
     }
     if (value === "best-selling") {
         BEST_SELLING.forEach((index) => {
-            productsWrapper.appendChild(ALLPRODUCTS[index]);
+            productsWrapper.appendChild(ALLPRODUCTELES[index]);
         });
     }
     if (value === "l-to-h") {
         P_L_TO_H.forEach((index) => {
-            productsWrapper.appendChild(ALLPRODUCTS[index]);
+            productsWrapper.appendChild(ALLPRODUCTELES[index]);
         });
     }
 };
 
+const loadCart = () => {
+    const cart = window.localStorage.getItem("cart");
+    const emptyCartEle = document.querySelector(".empty-basket");
+    const basketEle = document.querySelector(".basket-list");
+    if (!cart) {
+        basketEle.style.display = "none";
+    }
+    if (cart) {
+        emptyCartEle.style.display = "none";
+        const cartItems = cart.split(",");
+        cartItems.forEach((item) => {
+            const price = PRODUCTPRICES[item];
+            const div = document.createElement("div");
+            div.classList.add("basket-item");
+            div.innerHTML = `
+            <div class="item-img-name">
+                <img src="../assets/products/product_small/${item}.jpg" alt="${item}" />
+                <h3>${item}</h3>
+            </div>   
+            <div class="price-group">
+                <p>$${price}</p>
+                <button class="remove-from-cart">Remove</button>
+            </div>   
+            `;
+            basketEle.appendChild(div);
+        });
+    }
+};
+
+const removeFromCart = () => {
+    const removeCartBtns = document.querySelectorAll(".remove-from-cart");
+    const basketEle = document.querySelector(".basket-list");
+    const emptyCartEle = document.querySelector(".empty-basket");
+    removeCartBtns.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            const ele = e.currentTarget.parentNode.parentNode;
+
+            const cart = window.localStorage.getItem("cart");
+            const cartItems = cart.split(",");
+            const itemToRemove = ele.querySelector("h3").textContent;
+            const newCart = cartItems.filter((item) => item !== itemToRemove);
+            ele.remove();
+
+            if (newCart.length === 0) {
+                basketEle.style.display = "none";
+                emptyCartEle.style.display = "flex";
+                window.localStorage.removeItem("cart");
+            } else {
+                window.localStorage.setItem("cart", newCart.join(","));
+            }
+        });
+    });
+};
+
 burgerMenuBtn.addEventListener("click", toggleBurgerMenu);
+
+if (formSubmit) {
+    formSubmit.addEventListener("click", submitForm);
+}
+if (dialogCloseBtn) {
+    dialogCloseBtn.addEventListener("click", dialogCloseBtnOnClick);
+}
 if (filter) {
     filter.addEventListener("change", filterSort);
 }
+if (addToCartBtns) {
+    addToCartBtns.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            const id = e.currentTarget.parentNode.parentNode.id;
+            const cart = window.localStorage.getItem("cart");
+            const cartVal = cart === null ? id : `${cart},${id}`;
+            window.localStorage.setItem("cart", cartVal);
+            window.alert("added to cart");
+        });
+    });
+}
+
+window.onload = (e) => {
+    if (dialog) {
+        dialog.showModal();
+    }
+    const file = e.currentTarget.location.pathname.split("/").at(-1);
+    if (file === "basket.html") {
+        loadCart();
+        removeFromCart();
+    }
+};
+
 window.addEventListener("resize", () => {
     initSlider();
 });
